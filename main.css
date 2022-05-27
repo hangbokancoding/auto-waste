@@ -36,3 +36,8 @@ button.center {
     flex-grow: 1;
     min-width: 300px;
 }
+
+#webcam-container canvas {
+    border: 2px #485fc7 solid;
+    border-radius: 10px;
+}

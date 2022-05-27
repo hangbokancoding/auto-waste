@@ -4,6 +4,7 @@
 // the link to your model provided by Teachable Machine export panel
 const URL = "https://teachablemachine.withgoogle.com/models/88IvRVKpC/";
 
+const flip = true;
 let model, webcam, webcamContainer, resultContainer, maxPredictions, aniNum, btn;
 
 document.getElementById("start").onclick = start;
@@ -24,7 +25,6 @@ async function start() {
     maxPredictions = model.getTotalClasses();
 
     // Convenience function to setup a webcam
-    const flip = true; // whether to flip the webcam
     webcam = new tmImage.Webcam(300, 300, flip); // width, height, flip
     await webcam.setup(); // request access to the webcam
 
@@ -67,6 +67,8 @@ async function re() {
     resultContainer.hidden = true;
     btn.classList.add("is-loading");
 
+    webcam = new tmImage.Webcam(300, 300, flip); // width, height, flip
+    await webcam.setup(); // request access to the webcam
     await webcam.play();
     window.requestAnimationFrame(loop);
 
