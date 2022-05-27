@@ -1,0 +1,38 @@
+@font-face {
+    font-family: 'GmarketSansLight';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'GmarketSansLight', sans-serif;
+}
+
+.center * {
+    text-align: center;
+    margin: 0 auto;
+}
+
+button.center {
+    display: block !important;
+}
+
+.display-none {
+    display: none !important;
+}
+
+#webcam-result tr {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#webcam-result #webcam-td {
+    flex: none;
+}
+
+#webcam-result #result-td {
+    flex-grow: 1;
+    min-width: 300px;
+}
