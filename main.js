@@ -4,7 +4,7 @@
 // the link to your model provided by Teachable Machine export panel
 const URL = "https://teachablemachine.withgoogle.com/models/88IvRVKpC/";
 
-let model, webcam, resultContainer, maxPredictions, aniNum, btn;
+let model, webcam, webcamContainer, resultContainer, maxPredictions, aniNum, btn;
 
 document.getElementById("start").onclick = start;
 
@@ -12,8 +12,6 @@ document.getElementById("start").onclick = start;
 async function start() {
     // == loading ==
     document.getElementById("start").classList.add("is-loading");
-    document.getElementById("start").onclick = function(){};
-
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
 
@@ -33,7 +31,8 @@ async function start() {
     await webcam.play();
     window.requestAnimationFrame(loop);
 
-    document.getElementById("webcam-container").appendChild(webcam.canvas);
+    webcamContainer = document.getElementById("webcam-container");
+    webcamContainer.appendChild(webcam.canvas);
     resultContainer = document.getElementById("result-container");
     resultContainer.hidden = true;
 
@@ -42,6 +41,7 @@ async function start() {
     btn.textContent = '결과보기';
     btn.onclick = stop;
     btn.classList.remove("is-loading");
+    btn.classList.add("is-link")
 }
 
 function sleep(ms) {
@@ -56,8 +56,29 @@ async function stop() {
     resultContainer.hidden = false;
     fadeIn(resultContainer);
 
+    // re?
     btn.textContent = "다시하기";
-    btn.onclick = () => {location.reload()};
+    btn.onclick = re;
+}
+
+async function re() {
+    webcamContainer.innerHTML = '';
+    resultContainer.innerHTML = '';
+    resultContainer.hidden = true;
+    btn.classList.add("is-loading");
+
+    await webcam.play();
+    window.requestAnimationFrame(loop);
+
+    webcamContainer.appendChild(webcam.canvas);
+    resultContainer.hidden = true;
+
+    // btn
+    btn = document.getElementById("start");
+    btn.textContent = '결과보기';
+    btn.onclick = stop;
+    btn.classList.remove("is-loading");
+    btn.classList.add("is-link")
 }
 
 async function loop() {
