@@ -1,13 +1,13 @@
 const CACHE_NAME = 'v0.0.0 b0';
 const FILES_TO_CACHE = [
-    './',
-    './index.html',
-    './fadeinout.js',
-    './favicon.png',
-    './main.css',
-    './main.js',
-    './manifest.json',
-    './service-worker.js'
+  "./auto-waste/",
+  "./auto-waste/index.html",
+  "./auto-waste/fadeinout.js",
+  "./auto-waste/favicon.png",
+  "./auto-waste/main.css",
+  "./auto-waste/main.js",
+  "./auto-waste/manifest.json",
+  "./auto-waste/service-worker.js",
 ];
 
 self.addEventListener('install', evt => {
