@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v0.0.0 b0';
+const CACHE_NAME = 'v0.0.0 b1';
 const FILES_TO_CACHE = [
   "./auto-waste/",
   "./auto-waste/index.html",
