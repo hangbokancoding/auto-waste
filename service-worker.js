@@ -8,6 +8,8 @@ const FILES_TO_CACHE = [
   "./main.js",
   "./manifest.json",
   "./service-worker.js",
+  './tf.js',
+  './teachable-machine-image.js'
 ];
 
 self.addEventListener('install', evt => {
