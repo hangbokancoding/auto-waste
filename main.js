@@ -5,70 +5,63 @@
 const URL = "https://teachablemachine.withgoogle.com/models/88IvRVKpC/";
 
 const flip = true;
-let model, webcam, webcamContainer, resultContainer, maxPredictions, aniNum, btn;
+let model, webcam, maxPredictions, aniNum;
 
-document.getElementById("start").onclick = start;
+const webcamContainer = document.getElementById("webcam-container"),
+  resultContainer = document.getElementById("result-container"),
+  btn = document.getElementById("start");
 
-// Load the image model and setup the webcam
+btn.onclick = start;
+
 async function start() {
-    // == loading ==
-    document.getElementById("start").classList.add("is-loading");
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
 
-    // load the model and metadata
-    // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
-    // or files from your local hard drive
-    // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+    btn.classList.add("is-loading");
+    
+    // model
     model = await tmImage.load(modelURL, metadataURL);
-
     maxPredictions = model.getTotalClasses();
 
-    // Convenience function to setup a webcam
-    webcam = new tmImage.Webcam(300, 300, flip); // width, height, flip
-    await webcam.setup(); // request access to the webcam
+    // webcam
+    webcam = new tmImage.Webcam(300, 300, flip);
+    await webcam.setup();
 
     await webcam.play();
     window.requestAnimationFrame(loop);
 
-    webcamContainer = document.getElementById("webcam-container");
     webcamContainer.appendChild(webcam.canvas);
-    resultContainer = document.getElementById("result-container");
     resultContainer.hidden = true;
 
     // btn
-    btn = document.getElementById("start");
     btn.textContent = '결과보기';
     btn.onclick = stop;
     btn.classList.remove("is-loading");
     btn.classList.add("is-link")
 }
 
-function sleep(ms) {
-  const wakeUpTime = Date.now() + ms;
-  while (Date.now() < wakeUpTime) {}
-}
-
 async function stop() {
-    // webcam stop and show
+    // webcam and container
     webcam.stop();
     resultContainer.style.opacity = 0;
     resultContainer.hidden = false;
     fadeIn(resultContainer);
-
-    // re?
+    
+    // btn
     btn.textContent = "다시하기";
     btn.onclick = re;
 }
 
 async function re() {
+    // init
     webcamContainer.innerHTML = '';
     resultContainer.innerHTML = '';
     resultContainer.hidden = true;
     btn.classList.add("is-loading");
 
-    webcam = new tmImage.Webcam(300, 300, flip); // width, height, flip
-    await webcam.setup(); // request access to the webcam
+    // webcam
+    webcam = new tmImage.Webcam(300, 300, flip);
+    await webcam.setup();
     await webcam.play();
     window.requestAnimationFrame(loop);
 
@@ -76,7 +69,6 @@ async function re() {
     resultContainer.hidden = true;
 
     // btn
-    btn = document.getElementById("start");
     btn.textContent = '결과보기';
     btn.onclick = stop;
     btn.classList.remove("is-loading");
@@ -85,22 +77,23 @@ async function re() {
 
 async function loop() {
     if (!resultContainer.hidden) return;
-    webcam.update(); // update the webcam frame
+    webcam.update();
     await predict();
     requestAnimationFrame(loop);
 }
 
-// run the webcam image through the image model
 async function predict() {
-    // predict can take in an image, video or canvas html element
     const prediction = await model.predict(webcam.canvas);
     let datas = {};
+    // get predictions
     for (let i = 0; i < maxPredictions; i++) {
         datas[i] = {
             name: prediction[i].className,
             value: prediction[i].probability.toFixed(2) * 100
         }
     }
+
+    // progress
     const colors = ['primary', 'link', 'danger', 'warning'];
     let result = '';
     for (let i = 0; i < maxPredictions; i++) {

@@ -1,0 +1,8 @@
+{
+  "name": "자동 분리수거 판별기",
+  "shortname": "자동 분리수거 판별기",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#485FC7",
+  "theme_color": "#485FC7"
+}
