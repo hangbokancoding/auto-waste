@@ -1,4 +1,4 @@
-const CACHE_NAME = 'v0.0.0 b2';
+const CACHE_NAME = 'v0.0.0 b3';
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
