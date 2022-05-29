@@ -7,9 +7,7 @@ const FILES_TO_CACHE = [
   "./main.css",
   "./main.js",
   "./manifest.json",
-  "./service-worker.js",
-  './tf.js',
-  './teachable-machine-image.js'
+  "./service-worker.js"
 ];
 
 self.addEventListener('install', evt => {
