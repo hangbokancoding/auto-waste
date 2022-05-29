@@ -21,6 +21,12 @@
     <!-- my js -->
     <script src="fadeinout.js" defer></script>
     <script src="main.js" defer></script>
+    <!-- PWA -->
+    <script defer>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js').then(reg => console.log("sw.js!", reg));
+        };
+    </script>
 
     <!-- font css -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
